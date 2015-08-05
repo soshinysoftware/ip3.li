@@ -1,0 +1,21 @@
+extends layout
+
+
+block content
+  hr
+  h1
+    span(class='ipfield')=ip
+  hr
+  h2 ip3.li
+  p All of the existing public ip lookup services suffer from bloat.  None of that here!
+  p ip3.li is the free, highly simple external IP address echo service.
+
+  h3 Getting started
+  p You can get started right now on the command line:
+  pre
+   code $ curl ip3.li
+  p Which will respond with:
+  pre
+    code=ip
+  p ...Did it ever really need to be any more complicated than that?
+
