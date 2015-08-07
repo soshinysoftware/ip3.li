@@ -7,3 +7,28 @@ body {
     border-width: 1px;
     border-color: #AAAAAA;
 }
+
+.navpara {
+    text-align: center;
+}
+
+.navpara a {
+    padding-left: 1em;
+    padding-right: 1em;
+    border-right: 5px double #DDDDDD;
+}
+
+.navpara a:last-child {
+    border-right: none;
+}
+
+.cmd {
+    display: block;
+}
+
+.cmd.request {
+    color: #204d74;
+}
+.cmd.response {
+    color: black;
+}

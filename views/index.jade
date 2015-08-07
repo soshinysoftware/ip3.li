@@ -3,19 +3,32 @@ extends layout
 
 block content
   hr
-  h1
+  h1(style='text-align:center;')
     span(class='ipfield')=ip
   hr
+  p(class='navpara')
+    a(href='/') home
+    a(href='/api') api
+    a(href='http://jackhicks.uk/?ref=ip3li') author
+    a(href='http://soshinysoftware.uk/?ref=ip3li') soshinysoftware.uk
   h2 ip3.li
-  p All of the existing public ip lookup services suffer from bloat.  None of that here!
+  p Most of the existing public ip lookup services are ugly, full of ads, and not developer friendly.  None of that here!
   p ip3.li is the free, highly simple external IP address echo service.
 
-  h3 Getting started
-  p You can get started right now on the command line:
+  h3 getting started
+  p You can get started right now on the command line.  Try this:
   pre
    code $ curl ip3.li
-  p Which will respond with:
+  p In return you'll receive this:
   pre
     code=ip
-  p ...Did it ever really need to be any more complicated than that?
+  p Did it ever really need to be any more complicated than that?
 
+  h3 a little more
+  p Try these variations for more options:
+  pre
+    code
+      span(class='cmd request') $ curl ip3.li/json
+      span(class='cmd response') {"ip" : "#{ip}"}
+      span(class='cmd request') $ curl ip3.li/xml
+      span(class='cmd response') &lt;ip>#{ip}&lt;/ip>
