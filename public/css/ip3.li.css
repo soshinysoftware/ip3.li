@@ -13,22 +13,30 @@ body {
 }
 
 .navpara a {
+    display: inline-block;
     padding-left: 1em;
     padding-right: 1em;
-    border-right: 5px double #DDDDDD;
+    margin-left: 0.05em;
+    margin-right: 0.05em;
+    border-right: 2px solid #DDDDDD;
+    border-left: 2px solid #DDDDDD;
 }
 
-.navpara a:last-child {
-    border-right: none;
-}
 
 .cmd {
     display: block;
 }
 
 .cmd.request {
-    color: #204d74;
+    color: black;
 }
 .cmd.response {
-    color: black;
+    color: #657da1;
+    margin-bottom: 0.5em;
+}
+
+h2 small a{
+    margin-left: 1.5em;
+    font-size: 0.8em;
+    color: #888888;
 }

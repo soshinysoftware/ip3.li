@@ -1,0 +1,49 @@
+extends layout
+
+
+block content
+  h1 api
+  div(style='overflow-x: hidden;')!=moeText
+  h2 overview
+  p Please accept this Simpsons Moe ASCII art as part explanation for the domain name.
+  p This API is designed to be extremely simple.
+  h2 raw
+    small
+      a(href='/raw') http://ip3.li/raw
+  pre
+    code
+      span(class='cmd request') $ curl ip3.li
+      span(class='cmd response') #{ip}
+      span(class='cmd request') $ curl ip3.li/raw
+      span(class='cmd response') #{ip}
+  p These two requests will produce a HTTP 200 response containing just the IP address in the response body.
+  p Accessing the domain with no path specified will attempt to determine (based on the user-agent) if the client is using a web browser or a custom client.  If a web browser is detected, this website will be served.  The /raw entry point exists to force the IP address only response.
+
+  h2 json
+    small
+      a(href='/json') http://ip3.li/json
+  pre
+    code
+      span(class='cmd request') $ curl ip3.li/json
+      span(class='cmd response') {"ip" : "#{ip}"}
+      span(class='cmd request') $ curl ip3.li/jsonp/mySpecialCallback
+      span(class='cmd response') mySpecialCallback({"ip" : "#{ip}"});
+  p This is a very simple wrapper for easily fetching the IP in a JSON or JSONP form.  When requesting the JSONP response, you provide the name of your desired callback at the end of the path.  In this case, 'mySpecialCallback'.
+
+  h2 xml
+    small
+      a(href='/xml') http://ip3.li/xml
+  pre
+    code
+      span(class='cmd request') $ curl ip3.li/xml
+      span(class='cmd response') &lt;ip>#{ip}&lt;/ip>
+  p Another very simple wrapper for fetching the response, this time wrapped in XML.  Some people still enjoy this, we're told.
+
+  h2 qr
+    small
+      a(href='/qr') http://ip3.li/qr
+  pre
+    code
+      span(class='cmd request') $ curl ip3.li/qr
+      span(class='cmd response') [png image data]
+  p Because we can!  This will deliver your IP in QR scan-able form. Everybody loves QR codes these days.

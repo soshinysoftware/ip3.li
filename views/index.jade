@@ -2,20 +2,11 @@ extends layout
 
 
 block content
-  hr
-  h1(style='text-align:center;')
-    span(class='ipfield')=ip
-  hr
-  p(class='navpara')
-    a(href='/') home
-    a(href='/api') api
-    a(href='http://jackhicks.uk/?ref=ip3li') author
-    a(href='http://soshinysoftware.uk/?ref=ip3li') soshinysoftware.uk
-  h2 ip3.li
+  h1 ip3.li
   p Most of the existing public ip lookup services are ugly, full of ads, and not developer friendly.  None of that here!
   p ip3.li is the free, highly simple external IP address echo service.
 
-  h3 getting started
+  h2 getting started
   p You can get started right now on the command line.  Try this:
   pre
    code $ curl ip3.li
@@ -24,7 +15,7 @@ block content
     code=ip
   p Did it ever really need to be any more complicated than that?
 
-  h3 a little more
+  h2 a little more
   p Try these variations for more options:
   pre
     code
