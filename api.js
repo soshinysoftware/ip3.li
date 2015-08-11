@@ -20,10 +20,16 @@ module.exports = function(req, res, next)
         if(
             apiPathRoute!='raw' && (
             useragent.indexOf("Mozilla")!=-1 ||
-            useragent.indexOf("Googlebot")!=-1 ||
             useragent.indexOf("Gecko")!=-1 ||
             useragent.indexOf("AppleWebKit")!=-1 ||
-            useragent.indexOf("OPR")!=-1
+			useragent.indexOf("Google-HTTP-Java-Client")!=-1 ||
+			useragent.indexOf("Dorado WAP-Browser")!=-1 ||
+			useragent.indexOf("Opera")!=-1 ||
+			useragent.indexOf("Crowsnest")!=-1 ||
+			useragent.indexOf("Traackr.com")!=-1 ||
+			useragent.indexOf("Googlebot")!=-1 ||
+			useragent.indexOf("ShowyouBot")!=-1 ||
+            useragent.indexOf("Twitterbot")!=-1
         ))
         {
             return next();
