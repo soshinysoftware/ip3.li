@@ -74,7 +74,12 @@ module.exports = function(req, res, next)
      */
     else if(apiPathRoute=='qr')
     {
+        var qr = require('qr-image');
+        var qr_svg = qr.image(ip, { type: 'png' });
+        res.writeHead(200,  { 'Content-Type': 'image/png', 'Connection': 'close'});
+        qr_svg.pipe(res);
 
+        return;
     }
 
     /**
