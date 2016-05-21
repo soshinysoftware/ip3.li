@@ -3,7 +3,7 @@ module.exports = function(req, res, next)
     //get the user agent and path components
     var useragent = req.headers['user-agent'].toLowerCase();
     var pathComponents = req.path.split('/');
-    var ip = req.connection.remoteAddress;
+    var ip = req.headers['forwardedfromip'] || req.connection.remoteAddress;
 
     //trim and lowercase pathComponents[1]
     if(pathComponents[1])
@@ -69,6 +69,9 @@ module.exports = function(req, res, next)
     else if(apiPathRoute=='qr')
     {
 
+        res.statusCode=200;
+        return res.end("Coming soon!");
+        
     }
 
     /**
