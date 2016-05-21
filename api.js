@@ -3,7 +3,7 @@ module.exports = function(req, res, next)
     //get the user agent and path components
     var useragent = req.headers['user-agent'].toLowerCase();
     var pathComponents = req.path.split('/');
-    var ip = req.headers['forwardedfromip'] || req.connection.remoteAddress;
+    var ip = req.connection.remoteAddress;
 
     //trim and lowercase pathComponents[1]
     if(pathComponents[1])
@@ -20,10 +20,16 @@ module.exports = function(req, res, next)
         if(
             apiPathRoute!='raw' && (
             useragent.indexOf("Mozilla")!=-1 ||
-            useragent.indexOf("Googlebot")!=-1 ||
             useragent.indexOf("Gecko")!=-1 ||
             useragent.indexOf("AppleWebKit")!=-1 ||
-            useragent.indexOf("OPR")!=-1
+			useragent.indexOf("Google-HTTP-Java-Client")!=-1 ||
+			useragent.indexOf("Dorado WAP-Browser")!=-1 ||
+			useragent.indexOf("Opera")!=-1 ||
+			useragent.indexOf("Crowsnest")!=-1 ||
+			useragent.indexOf("Traackr.com")!=-1 ||
+			useragent.indexOf("Googlebot")!=-1 ||
+			useragent.indexOf("ShowyouBot")!=-1 ||
+            useragent.indexOf("Twitterbot")!=-1
         ))
         {
             return next();
@@ -68,10 +74,12 @@ module.exports = function(req, res, next)
      */
     else if(apiPathRoute=='qr')
     {
+        var qr = require('qr-image');
+        var qr_svg = qr.image(ip, { type: 'png' });
+        res.writeHead(200,  { 'Content-Type': 'image/png', 'Connection': 'close'});
+        qr_svg.pipe(res);
 
-        res.statusCode=200;
-        return res.end("Coming soon!");
-        
+        return;
     }
 
     /**
