@@ -1,7 +1,7 @@
 module.exports = function(req, res, next)
 {
     //get the user agent and path components
-    var useragent = req.headers['user-agent'].toLowerCase();
+    var useragent = req.headers['user-agent'];
     var pathComponents = req.path.split('/');
     var ip = req.headers['forwardedfromip'] || req.connection.remoteAddress;
 
@@ -14,7 +14,7 @@ module.exports = function(req, res, next)
     /**
      * The RAW route
      */
-    if(!req.path || apiPathRoute=='' || apiPathRoute=='raw')
+    if(!req.path || !apiPathRoute || apiPathRoute=='raw')
     {
         //attempt to match the user-agent with a browser (unless it's raw, in which case go straight for the raw option)
         if(
@@ -22,13 +22,13 @@ module.exports = function(req, res, next)
             useragent.indexOf("Mozilla")!=-1 ||
             useragent.indexOf("Gecko")!=-1 ||
             useragent.indexOf("AppleWebKit")!=-1 ||
-			useragent.indexOf("Google-HTTP-Java-Client")!=-1 ||
-			useragent.indexOf("Dorado WAP-Browser")!=-1 ||
-			useragent.indexOf("Opera")!=-1 ||
-			useragent.indexOf("Crowsnest")!=-1 ||
-			useragent.indexOf("Traackr.com")!=-1 ||
-			useragent.indexOf("Googlebot")!=-1 ||
-			useragent.indexOf("ShowyouBot")!=-1 ||
+            useragent.indexOf("Google-HTTP-Java-Client")!=-1 ||
+	    useragent.indexOf("Dorado WAP-Browser")!=-1 ||
+	    useragent.indexOf("Opera")!=-1 ||
+	    useragent.indexOf("Crowsnest")!=-1 ||
+	    useragent.indexOf("Traackr.com")!=-1 ||
+	    useragent.indexOf("Googlebot")!=-1 ||
+	    useragent.indexOf("ShowyouBot")!=-1 ||
             useragent.indexOf("Twitterbot")!=-1
         ))
         {
@@ -37,7 +37,7 @@ module.exports = function(req, res, next)
         else
         {
             res.statusCode=200;
-            return res.end(ip);
+            return res.end(ip + "\r\n");
         }
     }
 
@@ -47,7 +47,7 @@ module.exports = function(req, res, next)
     else if(apiPathRoute=='json')
     {
         res.statusCode=200;
-        return res.end(JSON.stringify({ip:ip}));
+        return res.end(JSON.stringify({ip:ip}) + "\r\n");
     }
 
     /**
@@ -57,7 +57,7 @@ module.exports = function(req, res, next)
     {
         var callbackName = pathComponents[2] || 'callback';
         res.statusCode=200;
-        return res.end(callbackName + "(" + JSON.stringify({ip:ip}) + ");");
+        return res.end(callbackName + "(" + JSON.stringify({ip:ip}) + ");\r\n");
     }
 
     /**
@@ -66,7 +66,7 @@ module.exports = function(req, res, next)
     else if(apiPathRoute=='xml')
     {
         res.statusCode=200;
-        return res.end("<ip>" + ip + "</ip>");
+        return res.end("<ip>" + ip + "</ip>\r\n");
     }
 
     /**
@@ -78,7 +78,6 @@ module.exports = function(req, res, next)
         var qr_svg = qr.image(ip, { type: 'png' });
         res.writeHead(200,  { 'Content-Type': 'image/png', 'Connection': 'close'});
         qr_svg.pipe(res);
-
         return;
     }
 
